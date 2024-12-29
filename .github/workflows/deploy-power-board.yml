@@ -134,3 +134,14 @@ jobs:
 
           # Push the commit
           git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:${{ github.ref }}
+
+      - name: Upload artifacts on failure
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: debugging-artifacts
+          path: |
+            ./doc
+            ./fab
+            ../../3d-models
+
